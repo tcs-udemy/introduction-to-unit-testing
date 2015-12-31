@@ -1,0 +1,11 @@
+.DS_Store
+composer.lock
+cache/
+twig-templates/
+vendor/
+.vagrant/
+.env
+phinx.yml
+Vagrantfile
+.idea/
+coverage/
