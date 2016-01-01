@@ -7,67 +7,66 @@ use Acme\Validation\Validator;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
+    protected $request;
+    protected $response;
+    protected $validator;
+    protected $testdata;
+
+    protected function setUpRequestResponse()
+    {
+        if ($this->testdata == null)
+            $this->testdata = [];
+
+        $this->request = new Request($this->testdata);
+        $this->response = new Response($this->request);
+        $this->validator = new Validator($this->request, $this->response);
+    }
+
     public function testGetIsValidReturnsTrue()
     {
-        $request = new Request([]);
-        $response = new Response($request);
-        $validator = new Validator($request, $response);
-
-        $validator->setIsValid(true);
-        $this->assertTrue($validator->getIsValid());
+        $this->setUpRequestResponse();
+        $this->validator->setIsValid(true);
+        $this->assertTrue($this->validator->getIsValid());
 
     }
 
     public function testGetIsValidReturnsFalse()
     {
-        $request = new Request([]);
-        $response = new Response($request);
-        $validator = new Validator($request, $response);
-
-        $validator->setIsValid(false);
-        $this->assertFalse($validator->getIsValid());
+        $this->setUpRequestResponse();
+        $this->validator->setIsValid(false);
+        $this->assertFalse($this->validator->getIsValid());
 
     }
 
     public function testCheckForMinStringLengthWithValidData()
     {
-        $request = new Request(['mintype' => 'yellow']);
-        $response = new Response($request);
-        $validator = new Validator($request, $response);
-
-        $errors = $validator->check(['mintype' => 'min:3']);
+        $this->testdata = ['mintype' => 'yellow'];
+        $this->setUpRequestResponse();
+        $errors = $this->validator->check(['mintype' => 'min:3']);
         $this->assertCount(0, $errors);
     }
 
     public function testCheckForMinStringLengthWithInvalidData()
     {
-        $request = new Request(['mintype' => 'x']);
-        $response = new Response($request);
-        $validator = new Validator($request, $response);
-
-        $errors = $validator->check(['mintype' => 'min:3']);
+        $this->testdata = ['mintype' => 'x'];
+        $this->setUpRequestResponse();
+        $errors = $this->validator->check(['mintype' => 'min:3']);
         $this->assertCount(1, $errors);
     }
 
     public function testCheckForEmailWithValidData()
     {
-        $request = new Request(['mintype' => 'john@here.com']);
-        $response = new Response($request);
-        $validator = new Validator($request, $response);
-
-        $errors = $validator->check(['mintype' => 'email']);
-
+        $this->testdata = ['mintype' => 'john@here.com'];
+        $this->setUpRequestResponse();
+        $errors = $this->validator->check(['mintype' => 'email']);
         $this->assertCount(0, $errors);
     }
 
     public function testCheckForEmailWithInalidData()
     {
-        $request = new Request(['mintype' => 'whatever']);
-        $response = new Response($request);
-        $validator = new Validator($request, $response);
-
-        $errors = $validator->check(['mintype' => 'email']);
-
+        $this->testdata = ['mintype' => 'email'];
+        $this->setUpRequestResponse();
+        $errors = $this->validator->check(['mintype' => 'email']);
         $this->assertCount(1, $errors);
     }
 }
