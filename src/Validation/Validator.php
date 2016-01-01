@@ -46,7 +46,7 @@ class Validator {
                 switch ($exploded[0]) {
                     case 'min':
                         $min = $exploded[1];
-                        if (Valid::string()->length($min)->Validate($this->request->input($name)) == false) {
+                        if (Valid::stringType()->length($min)->Validate($this->request->input($name)) == false) {
                             $errors[] = $name . " must be at least " . $min . " characters long!";
                         }
                         break;

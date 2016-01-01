@@ -11,7 +11,7 @@
         "vlucas/phpdotenv": "~1.1",
         "illuminate/database": "5.1.*",
         "altorouter/altorouter": "1.1.0",
-        "respect/validation": "^0.9.3",
+        "respect/validation": "~1.0",
         "duncan3dc/blade": "2.2.*",
         "robmorgan/phinx": "^0.4.5",
         "symfony/var-dumper": "^2.7",
