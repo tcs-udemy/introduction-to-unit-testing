@@ -8,7 +8,7 @@ use Acme\Validation\Validator;
  * Class AuthenticationController
  * @package Acme\Controllers
  */
-class AuthenticationController extends BaseController {
+class AuthenticationController extends BaseControllerWithDI {
 
     /**
      * Show the login page

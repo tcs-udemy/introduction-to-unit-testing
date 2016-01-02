@@ -7,7 +7,7 @@ use Acme\Models\Page;
  * Class PageController
  * @package Acme\Controllers
  */
-class PageController extends BaseController {
+class PageController extends BaseControllerWithDI {
 
     /**
      * Show the home page

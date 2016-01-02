@@ -10,7 +10,7 @@ use Acme\Validation\Validator;
  * Class RegisterController
  * @package Acme\Controllers
  */
-class RegisterController extends BaseController {
+class RegisterController extends BaseControllerWithDI {
 
     /**
      * Show the registration page
