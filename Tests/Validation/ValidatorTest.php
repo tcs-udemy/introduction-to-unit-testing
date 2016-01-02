@@ -1,11 +1,7 @@
 <?php
 namespace Acme\Tests;
 
-//use Acme\Http\Response;
-//use Acme\Http\Request;
 use Acme\Validation\Validator;
-use Kunststube\CSRFP\SignatureGenerator;
-use Dotenv;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
@@ -25,13 +21,6 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
             ->setConstructorArgs([$this->request, $signer])
             ->getMock();
     }
-
-
-//    protected function setUpRequestResponse()
-//    {
-//        if ($this->testdata == null)
-//            $this->testdata = [];
-//    }
 
 
     public function testGetIsValidReturnsTrue()
