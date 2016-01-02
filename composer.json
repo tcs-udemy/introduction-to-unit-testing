@@ -18,7 +18,8 @@
         "cocur/slugify": "^1.2",
         "swiftmailer/swiftmailer": "^5.4",
         "kunststube/csrfp": "^0.1.0",
-        "sunra/php-simple-html-dom-parser": "v1.5.0"
+        "sunra/php-simple-html-dom-parser": "v1.5.0",
+        "rdlowrey/auryn": "1.1.*"
     },
     "autoload": {
       "psr-4": { "Acme\\": "src/" }

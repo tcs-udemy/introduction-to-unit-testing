@@ -9,7 +9,7 @@ use Acme\Validation\Validator;
  * Class TestimonialController
  * @package Acme\Controllers
  */
-class TestimonialController extends BaseController {
+class TestimonialController extends BaseControllerWithDI {
 
     /**
      * Show the testimonials page
