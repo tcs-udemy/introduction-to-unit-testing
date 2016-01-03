@@ -4,7 +4,6 @@ namespace Acme\Http;
 use duncan3dc\Laravel\BladeInstance;
 use Kunststube\CSRFP\SignatureGenerator;
 use Sunra\PhpSimple\HtmlDomParser;
-use Acme\Http\Request;
 
 /**
  * Class Response
@@ -26,12 +25,11 @@ class Response {
     /**
      * Constructor
      */
-    public function __construct(Request $request, SignatureGenerator $signer)
+    public function __construct(Request $request, SignatureGenerator $signer, BladeInstance $blade, Session $session)
     {
         $this->request = $request;
-        $this->blade = new BladeInstance(getenv('VIEWS_DIRECTORY'), getenv('CACHE_DIRECTORY'));
+        $this->blade = $blade;
         $this->response_type = 'text/html';
-        //$this->signer = new SignatureGenerator(getenv('CSRF_SECRET'));
         $this->signer = $signer;
         $this->with['signer'] = $this->signer;
         $this->session = new Session();
@@ -47,7 +45,6 @@ class Response {
         $this->with['_session'] = $this->session;
         $html = $this->blade->render($this->view, $this->with);
         $this->repopulateForm($html);
-
         $this->renderOutput($html);
     }
 
@@ -196,7 +193,7 @@ class Response {
         if ($this->response_code != null) {
             switch ($this->response_code) {
                 case (404):
-                    header("HTTP/1.0 404 Not Found");
+                    header("HTTP/1.1 404 Not Found");
                     break;
                 default:
                     // nothing
