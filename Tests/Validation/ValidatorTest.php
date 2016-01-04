@@ -158,7 +158,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
     public function testCheckForUniqueWithValidData()
     {
-        // This time we'll mcik the entire Validator class and test that instead of an actual
+        // This time we'll mock the entire Validator class and test that instead of an actual
         // instance of the class.
 
         // We specify setMethods, so ONLY specified methods are stubbed. All others are mocked,
@@ -178,7 +178,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
     public function testCheckForUniqueWithInvalidData()
     {
-        // This time we'll mcik the entire Validator class and test that instead of an actual
+        // This time we'll mock the entire Validator class and test that instead of an actual
         // instance of the class.
 
         // we specify setMethods, so ONLY specified methods are stubbed. All others are mocked,
@@ -198,7 +198,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
     public function testValidateWithValidData()
     {
-        // This time we'll mcik the entire Validator class and test that instead of an actual
+        // This time we'll mock the entire Validator class and test that instead of an actual
         // instance of the class.
 
         // we specify setMethods, so ONLY specified methods are stubbed. All others are mocked,
@@ -215,7 +215,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
     public function testValidateWithInvalidData()
     {
-        // This time we'll mcik the entire Validator class and test that instead of an actual
+        // This time we'll mock the entire Validator class and test that instead of an actual
         // instance of the class.
 
         // we specify setMethods, so ONLY specified methods are stubbed. All others are mocked,
@@ -237,4 +237,5 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
         // Right now, the fact that it didn't blow up is enough for us!
         $validator->validate(['foo' => 'min:1'], '/bar');
     }
+
 }
