@@ -9,3 +9,5 @@ phinx.yml
 Vagrantfile
 .idea/
 coverage/
+Tests/acme_db.xml
+acme_test.sql
