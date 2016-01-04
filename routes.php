@@ -25,16 +25,6 @@ if ((Acme\auth\LoggedIn::user()) && (Acme\auth\LoggedIn::user()->access_level ==
     $router->map('GET', '/admin/page/add', 'Acme\Controllers\AdminController@getAddPage', 'add_page');
 }
 
-$router->map('GET', '/test-slug', function(){
-    $stringToSlug = "Hello world";
-    $separator = "-";
-    $slug = iconv('UTF-8', 'ASCII//TRANSLIT', $stringToSlug);
-    $slug = preg_replace("%[^-/+|\w ]%", '', $slug);
-    $slug = strtolower(trim($slug));
-    $slug = preg_replace("/[\/_|+ -]+/", $separator, $slug);
-    echo $slug;
-});
-
 // page routes
 $router->map('GET', '/test', 'Acme\Controllers\PageController@getTest', 'test');
 $router->map('GET', '/', 'Acme\Controllers\PageController@getShowHomePage', 'home');
