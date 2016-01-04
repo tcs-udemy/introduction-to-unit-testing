@@ -67,4 +67,15 @@ class PageController extends BaseControllerWithDI {
             ->render();
     }
 
+
+    public function makeSlug($stringToSlug, $separator = "-")
+    {
+        $slug = iconv('UTF-8', 'ASCII//TRANSLIT', $stringToSlug);
+        $slug = preg_replace("%[^-/+|\w ]%", '', $slug);
+        $slug = strtolower(trim($slug));
+        $slug = preg_replace("/[\/_|+ -]+/", $separator, $slug);
+
+        return $slug;
+    }
+
 }
