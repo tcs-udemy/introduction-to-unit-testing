@@ -13,6 +13,8 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
     protected function setUp()
     {
+        include(__DIR__ . "/../../bootstrap/functions.php");
+
         $signer = $this->getMockBuilder('Kunststube\CSRFP\SignatureGenerator')
             ->setConstructorArgs(['abc134'])
             ->getMock();
@@ -73,6 +75,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
         $validator = new Validator($req, $this->response, $this->session);
         $errors = $validator->check(['mintype' => 'min:3']);
+
         $this->assertCount(0, $errors);
     }
 
@@ -85,7 +88,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
         $validator = new Validator($req, $this->response, $this->session);
         $errors = $validator->check(['mintype' => 'min:3']);
-        $this->assertCount(1, $errors);
+
+        $error_msg = $errors[0];
+        $this->assertTrue(strContains($error_msg, "must be at least"));
     }
 
 
@@ -109,7 +114,8 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
         $validator = new Validator($req, $this->response, $this->session);
         $errors = $validator->check(['mintype' => 'email']);
-        $this->assertCount(1, $errors);
+        $error_msg = $errors[0];
+        $this->assertTrue(strContains($error_msg, "must be a valid email"));
     }
 
 
@@ -131,7 +137,8 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
         $validator = new Validator($req, $this->response, $this->session);
         $errors = $validator->check(['my_field' => 'equalTo:another_field']);
 
-        $this->assertCount(1, $errors);
+        $error_msg = $errors[0];
+        $this->assertStringStartsWith("Value does not match", $error_msg);
     }
 
 
@@ -192,7 +199,10 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
             ->willReturn(['a']);
 
         $errors = $validator->check(['my_field' => 'unique:User']);
-        $this->assertCount(1, $errors);
+
+        $error_msg = $errors[0];
+        $this->assertTrue(strContains($error_msg, "already exists in this system"));
+
     }
 
 
