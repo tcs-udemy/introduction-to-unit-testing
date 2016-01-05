@@ -17,6 +17,10 @@ abstract class AcmeBaseIntegrationTest extends \PHPUnit_Extensions_Database_Test
     public $conn;
     public $session;
 
+    protected $request;
+    protected $response;
+    protected $blade;
+
     public function setUp()
     {
         require __DIR__ . '/../vendor/autoload.php';
@@ -38,6 +42,24 @@ abstract class AcmeBaseIntegrationTest extends \PHPUnit_Extensions_Database_Test
 
         $capsule->setAsGlobal();
         $capsule->bootEloquent();
+
+        $signer = $this->getMockBuilder('Kunststube\CSRFP\SignatureGenerator')
+            ->setConstructorArgs(['abc134'])
+            ->getMock();
+
+        $this->request = $this->getMockBuilder('Acme\Http\Request')
+            ->getMock();
+
+        $this->session = $this->getMockBuilder('Acme\Http\Session')
+            ->getMock();
+
+        $this->blade = $this->getMockBuilder('duncan3dc\Laravel\BladeInstance')
+            ->setConstructorArgs(['abc', 'abc'])
+            ->getMock();
+
+        $this->response = $this->getMockBuilder('Acme\Http\Response')
+            ->setConstructorArgs([$this->request, $signer, $this->blade, $this->session])
+            ->getMock();
     }
 
 
