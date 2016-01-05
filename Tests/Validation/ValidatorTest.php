@@ -10,7 +10,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     protected $session;
     protected $blade;
 
-
+    /**
+     *
+     */
     protected function setUp()
     {
         include(__DIR__ . "/../../bootstrap/functions.php");
@@ -34,6 +36,10 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
             ->getMock();
     }
 
+    /**
+     * @param string $input
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
     function getReq($input = "")
     {
         $req = $this->getMockBuilder('Acme\Http\Request')
@@ -49,6 +55,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    /**
+     *
+     */
     public function testGetIsValidReturnsTrue()
     {
         // just to show that we can, we'll instantiate a real object here, and not a mocked object.
@@ -58,6 +67,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    /**
+     *
+     */
     public function testGetIsValidReturnsFalse()
     {
         // just to show that we can, we'll instantiate a real object here, and not a mocked object.
@@ -67,6 +79,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    /**
+     *
+     */
     public function testCheckForMinStringLengthWithValidData()
     {
         // our $request from the constructor does not have any request parameters, so
@@ -80,6 +95,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    /**
+     *
+     */
     public function testCheckForMinStringLengthWithInvalidData()
     {
         // our $request from the constructor does not have any request parameters, so
@@ -94,6 +112,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    /**
+     *
+     */
     public function testCheckForEmailWithValidData()
     {
         // our $request from the constructor does not have any request parameters, so
@@ -106,6 +127,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    /**
+     *
+     */
     public function testCheckForEmailWithInvalidData()
     {
         // our $request from the constructor does not have any request parameters, so
@@ -119,6 +143,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    /**
+     *
+     */
     public function testCheckForEqualToWithInvalidData()
     {
         // we do not specify setMethods, so all methods are stubs, all return null,
@@ -142,6 +169,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    /**
+     *
+     */
     public function testCheckForEqualToWithValidData()
     {
         // we did not specify setMethods, so all methods are stubs, all return null,
@@ -163,6 +193,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    /**
+     *
+     */
     public function testCheckForUniqueWithValidData()
     {
         // This time we'll mock the entire Validator class and test that instead of an actual
@@ -183,6 +216,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    /**
+     *
+     */
     public function testCheckForUniqueWithInvalidData()
     {
         // This time we'll mock the entire Validator class and test that instead of an actual
@@ -206,6 +242,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    /**
+     *
+     */
     public function testValidateWithValidData()
     {
         // This time we'll mock the entire Validator class and test that instead of an actual
@@ -223,6 +262,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    /**
+     *
+     */
     public function testValidateWithInvalidData()
     {
         // This time we'll mock the entire Validator class and test that instead of an actual

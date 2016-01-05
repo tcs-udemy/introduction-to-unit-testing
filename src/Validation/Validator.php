@@ -95,6 +95,7 @@ class Validator {
             $this->redirectToPage($url, $errors);
         } else {
             $this->isValid = true;
+
             return true;
         }
     }

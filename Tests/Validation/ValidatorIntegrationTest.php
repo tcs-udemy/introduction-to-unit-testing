@@ -1,8 +1,15 @@
 <?php
 namespace Acme\Tests;
 
+/**
+ * Class ValidatorIntegrationTest
+ * @package Acme\Tests
+ */
 class ValidatorIntegrationTest extends AcmeBaseIntegrationTest {
 
+    /**
+     *
+     */
     public function testGetRows()
     {
         $req = $this->getMockBuilder('Acme\Http\Request')

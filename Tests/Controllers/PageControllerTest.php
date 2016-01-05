@@ -1,6 +1,10 @@
 <?php
 namespace Acme\Tests;
 
+/**
+ * Class PageControllerTest
+ * @package Acme\Tests
+ */
 class PageControllerTest extends \PHPUnit_Framework_TestCase {
 
     protected $request;
@@ -63,7 +67,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ["Hello World", "hello-world"],
             ["Goodbye, cruel world!", "goodbye-cruel-world"],
             ["What about an & and a ?", "what-about-an-and-a"],
-            ["It should also handle é", "it-should-also-handle-e"]
+            ["It should also handle é", "it-should-also-handle-e"],
         ];
     }
 }
