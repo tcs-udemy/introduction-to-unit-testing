@@ -21,6 +21,9 @@ abstract class AcmeBaseIntegrationTest extends \PHPUnit_Extensions_Database_Test
     protected $response;
     protected $blade;
 
+    /**
+     *
+     */
     public function setUp()
     {
         require __DIR__ . '/../vendor/autoload.php';
@@ -63,12 +66,18 @@ abstract class AcmeBaseIntegrationTest extends \PHPUnit_Extensions_Database_Test
     }
 
 
+    /**
+     * @return \PHPUnit_Extensions_Database_DataSet_MysqlXmlDataSet
+     */
     public function getDataSet()
     {
         return $this->createMySQLXMLDataSet(__DIR__ . "/acme_db.xml");
     }
 
 
+    /**
+     * @return \PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection
+     */
     public function getConnection()
     {
         $db = new PDO(
