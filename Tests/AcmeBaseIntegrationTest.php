@@ -20,6 +20,7 @@ abstract class AcmeBaseIntegrationTest extends \PHPUnit_Extensions_Database_Test
     protected $request;
     protected $response;
     protected $blade;
+    protected $signer;
 
     /**
      *
@@ -46,7 +47,7 @@ abstract class AcmeBaseIntegrationTest extends \PHPUnit_Extensions_Database_Test
         $capsule->setAsGlobal();
         $capsule->bootEloquent();
 
-        $signer = $this->getMockBuilder('Kunststube\CSRFP\SignatureGenerator')
+        $this->signer = $this->getMockBuilder('Kunststube\CSRFP\SignatureGenerator')
             ->setConstructorArgs(['abc134'])
             ->getMock();
 
@@ -61,7 +62,7 @@ abstract class AcmeBaseIntegrationTest extends \PHPUnit_Extensions_Database_Test
             ->getMock();
 
         $this->response = $this->getMockBuilder('Acme\Http\Response')
-            ->setConstructorArgs([$this->request, $signer, $this->blade, $this->session])
+            ->setConstructorArgs([$this->request, $this->signer, $this->blade, $this->session])
             ->getMock();
     }
 
