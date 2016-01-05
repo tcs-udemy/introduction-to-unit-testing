@@ -9,6 +9,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     protected $response;
     protected $session;
     protected $blade;
+    protected $signer;
 
     /**
      *
@@ -17,7 +18,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     {
         include(__DIR__ . "/../../bootstrap/functions.php");
 
-        $signer = $this->getMockBuilder('Kunststube\CSRFP\SignatureGenerator')
+        $this->signer = $this->getMockBuilder('Kunststube\CSRFP\SignatureGenerator')
             ->setConstructorArgs(['abc134'])
             ->getMock();
 
@@ -32,7 +33,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
             ->getMock();
 
         $this->response = $this->getMockBuilder('Acme\Http\Response')
-            ->setConstructorArgs([$this->request, $signer, $this->blade, $this->session])
+            ->setConstructorArgs([$this->request, $this->signer, $this->blade, $this->session])
             ->getMock();
     }
 
@@ -60,7 +61,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
      */
     public function testGetIsValidReturnsTrue()
     {
-        // just to show that we can, we'll instantiate a real object here, and not a mocked object.
+        // Just to show that we can, we'll instantiate a real object here, and not a mocked object.
         $validator = new Validator($this->request, $this->response, $this->session);
         $validator->setIsValid(true);
         $this->assertTrue($validator->getIsValid());
@@ -72,7 +73,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
      */
     public function testGetIsValidReturnsFalse()
     {
-        // just to show that we can, we'll instantiate a real object here, and not a mocked object.
+        // Just to show that we can, we'll instantiate a real object here, and not a mocked object.
         $validator = new Validator($this->request, $this->response, $this->session);
         $validator->setIsValid(false);
         $this->assertFalse($validator->getIsValid());
@@ -84,7 +85,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
      */
     public function testCheckForMinStringLengthWithValidData()
     {
-        // our $request from the constructor does not have any request parameters, so
+        // Our $request from the constructor does not have any request parameters, so
         // we'll make a different one by calling getReq
         $req = $this->getReq('yellow');
 
@@ -100,7 +101,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
      */
     public function testCheckForMinStringLengthWithInvalidData()
     {
-        // our $request from the constructor does not have any request parameters, so
+        // Our $request from the constructor does not have any request parameters, so
         // we'll make a different one by calling getReq
         $req = $this->getReq('x');
 
@@ -117,7 +118,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
      */
     public function testCheckForEmailWithValidData()
     {
-        // our $request from the constructor does not have any request parameters, so
+        // Our $request from the constructor does not have any request parameters, so
         // we'll make a different one by calling getReq
         $req = $this->getReq('john@here.com');
 
@@ -132,7 +133,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
      */
     public function testCheckForEmailWithInvalidData()
     {
-        // our $request from the constructor does not have any request parameters, so
+        // Our $request from the constructor does not have any request parameters, so
         // we'll make a different one by calling getReq
         $req = $this->getReq('email');
 
@@ -148,7 +149,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
      */
     public function testCheckForEqualToWithInvalidData()
     {
-        // we do not specify setMethods, so all methods are stubs, all return null,
+        // We do not specify setMethods, so all methods are stubs, all return null,
         // and all are easy to override
         $req = $this->getMockBuilder('Acme\Http\Request')
             ->getMock();
@@ -174,7 +175,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
      */
     public function testCheckForEqualToWithValidData()
     {
-        // we did not specify setMethods, so all methods are stubs, all return null,
+        // We did not specify setMethods, so all methods are stubs, all return null,
         // and all are easy to override
         $req = $this->getMockBuilder('Acme\Http\Request')
             ->getMock();
@@ -199,9 +200,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     public function testCheckForUniqueWithValidData()
     {
         // This time we'll mock the entire Validator class and test that instead of an actual
-        // instance of the class.
-
-        // We specify setMethods, so ONLY specified methods are stubbed. All others are mocked,
+        // instance of the class. We specify setMethods, so ONLY specified methods are stubbed. All others are mocked,
         // and will run the code behind them. Stubbed can be overridden, and return null by default.
         $validator = $this->getMockBuilder('Acme\Validation\Validator')
             ->setConstructorArgs([$this->request, $this->response, $this->session])
@@ -222,9 +221,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     public function testCheckForUniqueWithInvalidData()
     {
         // This time we'll mock the entire Validator class and test that instead of an actual
-        // instance of the class.
-
-        // we specify setMethods, so ONLY specified methods are stubbed. All others are mocked,
+        // instance of the class. We specify setMethods, so ONLY specified methods are stubbed. All others are mocked,
         // and will run the code behind them. Stubbed can be overridden, and return null by default
         $validator = $this->getMockBuilder('Acme\Validation\Validator')
             ->setConstructorArgs([$this->request, $this->response, $this->session])
@@ -268,9 +265,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     public function testValidateWithInvalidData()
     {
         // This time we'll mock the entire Validator class and test that instead of an actual
-        // instance of the class.
-
-        // we specify setMethods, so ONLY specified methods are stubbed. All others are mocked,
+        // instance of the class. We specify setMethods, so ONLY specified methods are stubbed. All others are mocked,
         // and will run the code behind them. Stubbed can be overridden, and return null by default
         $validator = $this->getMockBuilder('Acme\Validation\Validator')
             ->setConstructorArgs([$this->request, $this->response, $this->session])
@@ -284,10 +279,45 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
         $validator->expects($this->once())
             ->method('redirectToPage');
 
-        // We can't really use an asssertion here -- this is just a smoke test.
-        // This will be tested properly in integration testing.
-        // Right now, the fact that it didn't blow up is enough for us!
-        $validator->validate(['foo' => 'min:1'], '/bar');
+        $result = $validator->validate(['foo' => 'min:1'], '/bar');
+
+        // best we can do is test that $result is null
+        $this->assertNull($result);
+    }
+
+
+    public function testRedirectToPage()
+    {
+        // in order to run a unit test on this method and allow for an assertion,
+        // we'll mock the response class and override redirectToPage to return a true
+        $res = $this->getMockBuilder('Acme\Http\Response')
+            ->setConstructorArgs([$this->request, $this->signer, $this->blade, $this->session])
+            ->setMethods([ 'render'])
+            ->getMock();
+
+        $res->expects($this->once())
+            ->method('render')
+            ->will($this->returnValue([true]));
+
+        $validator = new Validator($this->request, $res, $this->session);
+        $result = $this->run_protected_method($validator, 'redirectToPage', ['/whatever', [] ]);
+
+        $this->assertNull($result);
+    }
+
+
+    /**
+     * Use reflection to allow us to run protected methods
+     *
+     * @param $obj
+     * @param $method
+     * @param array $args
+     * @return mixed
+     */
+    protected function run_protected_method ($obj, $method, $args = array()) {
+        $method = new \ReflectionMethod(get_class($obj), $method);
+        $method->setAccessible(true);
+        return $method->invokeArgs($obj, $args);
     }
 
 }
