@@ -36,7 +36,7 @@ class AuthenticationController extends BaseControllerWithDI {
             'password' => 'min:3',
         ];
 
-        $validator = new Validator($this->request, $this->response);
+        $validator = new Validator($this->request, $this->response, $this->session);
         $valid = $validator->validate($rules, '/login');
 
         if ($valid) {

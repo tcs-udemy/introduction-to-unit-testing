@@ -17,4 +17,7 @@ $injector->share('Acme\Http\Request');
 $injector->share('Acme\Http\Response');
 $injector->share('Acme\Http\Session');
 
+$injector->define('Acme\Auth\LoggedIn', ['session' => 'Acme\Http\Session']);
+$injector->make('Acme\Auth\LoggedIn');
+
 return $injector;

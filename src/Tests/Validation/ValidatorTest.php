@@ -16,7 +16,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
      */
     protected function setUp()
     {
-        include(__DIR__ . "/../../bootstrap/functions.php");
+        include(__DIR__ . "/../../../bootstrap/functions.php");
 
         $this->signer = $this->getMockBuilder('Kunststube\CSRFP\SignatureGenerator')
             ->setConstructorArgs(['abc134'])
