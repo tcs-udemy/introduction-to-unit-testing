@@ -10,6 +10,19 @@ use Acme\Http\Request;
  */
 class PageControllerIntegrationTest extends AcmeBaseIntegrationTest {
 
+
+    /**
+     * Override setUp in parent and set value in $_SERVER
+     */
+    public function setUp()
+    {
+        $_SERVER['REQUEST_URI'] = '/about-acme';
+        parent::setUp();
+    }
+
+    /**
+     * Test showing home page
+     */
     public function testGetHomePage()
     {
         $resp = $this->getMockBuilder('Acme\Http\Response')
@@ -33,6 +46,9 @@ class PageControllerIntegrationTest extends AcmeBaseIntegrationTest {
     }
 
 
+    /**
+     * Test showing a page
+     */
     public function testGetShowPage()
     {
         // create a mock of Response and make render method a stub
@@ -79,6 +95,10 @@ class PageControllerIntegrationTest extends AcmeBaseIntegrationTest {
         $this->assertEquals($expected, $actual);
     }
 
+
+    /**
+     * Test page with invalid data
+     */
     public function testGetShowPageWithInvalidData()
     {
         // create a mock of Response and make render method a stub
@@ -117,6 +137,9 @@ class PageControllerIntegrationTest extends AcmeBaseIntegrationTest {
     }
 
 
+    /**
+     * Test showing page not found
+     */
     public function testGetShow404()
     {
         $resp = $this->getMockBuilder('Acme\Http\Response')
@@ -140,6 +163,9 @@ class PageControllerIntegrationTest extends AcmeBaseIntegrationTest {
     }
 
 
+    /**
+     * Test getUri
+     */
     public function testGetUri()
     {
         // create a mock of Response and make render method a stub

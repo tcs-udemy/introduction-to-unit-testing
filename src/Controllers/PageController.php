@@ -69,6 +69,11 @@ class PageController extends BaseControllerWithDI {
     }
 
 
+    /**
+     * @param $stringToSlug
+     * @param string $separator
+     * @return mixed|string
+     */
     public function makeSlug($stringToSlug, $separator = "-")
     {
         $slug = iconv('UTF-8', 'ASCII//TRANSLIT', $stringToSlug);
@@ -80,14 +85,12 @@ class PageController extends BaseControllerWithDI {
     }
 
 
+    /**
+     * @return mixed
+     */
     protected function getUri()
     {
-        // this is a total hack to get around awkward code
-        if (isset($this->request->server['_'])) { // only set if running phpunit
-            $uri = explode('/', '/about-acme');
-        } else { // serving actual content
-            $uri = explode("/", $this->request->server['REQUEST_URI']);
-        }
+        $uri = explode("/", $this->request->server['REQUEST_URI']);
         return $uri[1];
     }
 
