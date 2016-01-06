@@ -7,7 +7,7 @@
         }
     ],
     "require": {
-        "filp/whoops": "^1.1",
+        "filp/whoops": "2.0.*",
         "vlucas/phpdotenv": "~1.1",
         "illuminate/database": "5.1.*",
         "altorouter/altorouter": "1.1.0",
@@ -19,7 +19,8 @@
         "swiftmailer/swiftmailer": "^5.4",
         "kunststube/csrfp": "^0.1.0",
         "sunra/php-simple-html-dom-parser": "v1.5.0",
-        "rdlowrey/auryn": "1.1.*"
+        "rdlowrey/auryn": "1.1.*",
+        "fabpot/goutte": "^3.1"
     },
     "autoload": {
       "psr-4": { "Acme\\": "src/" }
