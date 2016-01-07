@@ -43,5 +43,21 @@ class LoggedInTest extends AcmeBaseIntegrationTest {
         // make sure the HTML page displayed (response code 200
         $this->assertEquals(200, $response_code_after_submit);
 
+        // make sure we can get to the testimonial page
+        $client->request('GET', 'http://localhost/add-testimonial');
+        $response_code = $client->getResponse()->getStatus();
+
+        $this->assertEquals(200, $response_code);
+
+    }
+
+
+    /**
+     * Test trying to access add-testimonial when not logged in
+     */
+    function testAddTestimonialWhenNotLoggedIn()
+    {
+        $response_code = $this->crawl('http://localhost/add-testimonial');
+        $this->assertEquals(404, $response_code);
     }
 }
