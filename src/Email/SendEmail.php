@@ -24,12 +24,12 @@ class SendEmail {
 
         $mailer = \Swift_Mailer::newInstance($transport);
 
-        $message = \Swift_Message::newInstance()
+        $msg = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom($from)
             ->setTo($to)
             ->setBody($message, 'text/html');
 
-        $mailer->send($message);
+        $mailer->send($msg);
     }
 }

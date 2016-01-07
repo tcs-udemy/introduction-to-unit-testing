@@ -34,7 +34,7 @@ class RegisterController extends BaseControllerWithDI {
             'password'     => 'min:3|equalTo:verify_password',
         ];
 
-        $validator = new Validator($this->request, $this->response);
+        $validator = new Validator($this->request, $this->response, $this->session);
         $valid = $validator->validate($rules, '/register');
 
         if ($valid) {
