@@ -1,0 +1,13 @@
+<?php if($_session->has('_message')): ?>
+    <div class="alert alert-success" role="alert">
+        <?php if(is_array($_session->get('_message'))): ?>
+            <ul>
+                <?php foreach($_session->get('_message') as $message): ?>
+                    <li> <?php echo $message; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p><?php echo $_session->get('_message'); ?></p>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

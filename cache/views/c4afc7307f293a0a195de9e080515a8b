@@ -1,0 +1,13 @@
+<?php if($_session->has('_error')): ?>
+    <div class="alert alert-danger" role="alert">
+        <?php if(is_array($_session->get('_error'))): ?>
+            <ul>
+                <?php foreach($_session->get('_error') as $error): ?>
+                    <li> <?php echo $error; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p><?php echo $_session->get('_error'); ?></p>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
